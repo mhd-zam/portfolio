@@ -1,6 +1,7 @@
 'use client'
 import { useRef, useEffect, useState } from 'react';
 import { Github, Mail, Linkedin, ExternalLink, Menu, X } from 'lucide-react';
+import DeveloperSkills from './component/DeveloperSkills';
 
 
 export default function HorizontalScroll() {
@@ -67,12 +68,12 @@ export default function HorizontalScroll() {
       <nav className="fixed top-0 z-50 w-full">
         <div className="flex justify-between items-center px-6 py-4 backdrop-blur-lg bg-black/30">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-            John Doe
+            Mohammed Zamil
           </h1>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
-            {['about', 'projects', 'contact'].map((section) => (
+            {['about', 'skills', 'contact'].map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
@@ -93,14 +94,15 @@ export default function HorizontalScroll() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X /> : <Menu />}
-          </button>
+          </button>  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.1),transparent_50%)]" />
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden fixed inset-0 bg-black/95 pt-20">
             <div className="flex flex-col items-center gap-8">
-              {['about', 'projects', 'contact'].map((section) => (
+              {['about', 'skills', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -120,12 +122,11 @@ export default function HorizontalScroll() {
           <div className="item">
             {/* Hero Section */}
             <section id="about" className="snap-start w-screen h-screen flex items-center justify-center min-w-full px-8 md:px-20 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.1),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
               <div className="max-w-4xl relative">
                 <div className="mb-6 flex items-center gap-4">
                   <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500" />
-                  <span className="text-gray-400 uppercase tracking-wider text-sm">Frontend Developer</span>
+                  <span className="text-gray-400 uppercase tracking-wider text-sm">Full-stack developer</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
                   Crafting Digital
@@ -141,7 +142,7 @@ export default function HorizontalScroll() {
                     onClick={() => scrollToSection('projects')}
                     className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    View Projects
+                    Download Resume
                   </button>
                   <div className="flex gap-4 items-center">
                     <Github className="w-6 h-6 hover:text-blue-500 cursor-pointer transition-colors" />
@@ -154,7 +155,11 @@ export default function HorizontalScroll() {
 
           </div>
 
-          <div className="item">
+          <div className='item' >
+            <DeveloperSkills/>
+          </div>
+
+          {/* <div className="item">
 
             <section id="projects" className="snap-start w-screen h-screen flex items-center justify-center min-w-full px-8 md:px-20 relative">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(147,51,234,0.1),transparent_50%)]" />
@@ -193,8 +198,7 @@ export default function HorizontalScroll() {
                 </div>
               </div>
             </section>
-
-          </div>
+          </div> */}
           <div className="item">
             <section id="contact" className="snap-start w-screen h-screen flex items-center justify-center min-w-full px-8 md:px-20 relative">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
