@@ -2,7 +2,7 @@ import React from 'react'
 import { Github, Mail, Linkedin, ExternalLink, Menu, X } from 'lucide-react';
 
 
-function IntroSection({scrollToSection}) {
+function IntroSection({ scrollToSection }) {
     return (
         <section id="about" className="snap-start w-screen h-screen flex items-center justify-center min-w-full px-8 md:px-20 relative">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
@@ -17,7 +17,7 @@ function IntroSection({scrollToSection}) {
                         Experiences
                     </span>
                 </h1>
-                <p className="text-xl text-gray-400 mb-12 max-w-2xl">
+                <p className="text-xl text-gray-400 mb-12 max-w-2xl text-wrap">
                     Transforming ideas into seamless, interactive web experiences through modern technology and creative design.
                 </p>
                 <div className="flex gap-6">
