@@ -40,7 +40,7 @@ const DeveloperSkills = () => {
     { name: "Docker", level: "Intermediate", imgUrl: 'https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png' },
     { name: "AWS", level: "Intermediate", imgUrl: 'https://massive.io/wp-content/uploads/2022/12/AWS-logo-web.png' },
     { name: "MySQL", level: "Intermediate", imgUrl: 'https://www.svgrepo.com/show/303251/mysql-logo.svg' },
-    { name: "Tailwind CSS", level: "Advanced", imgUrl: 'https://cdn.creazilla.com/icons/3257079/file-type-tailwind-icon-lg.png' },
+    { name: "Tailwind CSS", level: "Advanced", imgUrl: 'https://www.svgrepo.com/show/374118/tailwind.svg' },
     { name: "Next.js", level: "Advanced", imgUrl: 'https://miro.medium.com/v2/resize:fit:576/1*yqQpg5pkNNY2NCdcmqVstw.png' },
     { name: "Git", level: "Advanced", imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/2048px-Git_icon.svg.png' },
     { name: "CI/CD", level: "Intermediate", imgUrl: 'https://miro.medium.com/v2/resize:fit:735/1*iw_QvTSAAOBtE2BHoGrN6g.jpeg' },
