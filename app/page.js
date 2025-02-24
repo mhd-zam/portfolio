@@ -80,7 +80,7 @@ export default function HorizontalScroll() {
     <div className="h-screen  overflow-hidden bg-black text-white" >
       {/* Navigation */}
       <nav className="fixed top-0 z-50 w-full">
-        <div className="flex justify-between items-center px-6 py-4 backdrop-blur-lg bg-black/30">
+        <div className="flex justify-between items-center px-6 py-4  ">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
             Mohammed Zamil
           </h1>
@@ -108,7 +108,8 @@ export default function HorizontalScroll() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X /> : <Menu />}
-          </button>  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20" />
+          </button>
+          {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20" /> */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.1),transparent_50%)]" />
         </div>
 
