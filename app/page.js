@@ -62,6 +62,20 @@ export default function HorizontalScroll() {
   }, []);
 
 
+  const scrollToSection = (sectionId) => {
+
+    const section = document.getElementById(sectionId);
+    if (section) {
+      scrollContainerRef.current.scrollTo({
+        left: section.offsetLeft,
+        behavior: 'smooth'
+      });
+      setActiveSection(sectionId);
+    }
+    setIsMenuOpen(false);
+  }
+
+
   return (
     <div className="h-screen  overflow-hidden bg-black text-white" >
       {/* Navigation */}
@@ -77,7 +91,7 @@ export default function HorizontalScroll() {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className={`relative uppercase tracking-wider text-sm font-medium transition-colors duration-300 ${activeSection === section ? 'text-white' : 'text-gray-400 hover:text-white'
+                className={`relative uppercase tracking-wider z-50 cursor-pointer text-sm font-medium transition-colors duration-300 ${activeSection === section ? 'text-white' : 'text-gray-400 hover:text-white'
                   }`}
               >
                 {section}
@@ -122,7 +136,7 @@ export default function HorizontalScroll() {
           <div className="item">
             {/* Hero Section */}
             <section id="about" className="snap-start w-screen h-screen flex items-center justify-center min-w-full px-8 md:px-20 relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
               <div className="max-w-4xl relative">
                 <div className="mb-6 flex items-center gap-4">
                   <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500" />
@@ -155,8 +169,8 @@ export default function HorizontalScroll() {
 
           </div>
 
-          <div className='item' >
-            <DeveloperSkills/>
+          <div id="skills" className='item' >
+            <DeveloperSkills />
           </div>
 
           {/* <div className="item">
