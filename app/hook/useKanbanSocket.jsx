@@ -2,24 +2,28 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
-const useKanbanSocket = (initialCards = []) => {
+const useKanbanSocket = (initialCards = [], userPermission) => {
     const [cards, setCards] = useState(initialCards);
+    const [activeUsers, setactiveUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [connected, setConnected] = useState(false);
     const [socket, setSocket] = useState(null);
 
     // Initialize socket connection
     useEffect(() => {
-        const socketInstance = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL || "http://192.168.1.61:3001");
+        if (!userPermission?.isAuthorized) return;
+
+        const socketInstance = io(
+            process.env.NEXT_PUBLIC_WEBSOCKET_URL || "http://192.168.1.61:3001"
+        );
         setSocket(socketInstance);
 
         // Set up WebSocket event listeners
         socketInstance.on("connect", () => {
             console.log("Connected to WebSocket server");
             setConnected(true);
-
-            // Request the initial board state from the server
             socketInstance.emit("requestInitialState");
+            socketInstance.emit("login", userPermission.user);
         });
 
         socketInstance.on("disconnect", () => {
@@ -33,6 +37,13 @@ const useKanbanSocket = (initialCards = []) => {
             setLoading(false);
         });
 
+        socketInstance.on("userlist", (userlist) => {
+            console.log(userlist, 'userlist.......');
+
+            setactiveUsers(userlist);
+            // setLoading(false);
+        });
+
         // Listen for board updates from other users
         socketInstance.on("boardUpdate", (updatedCards) => {
             setCards(updatedCards);
@@ -44,9 +55,10 @@ const useKanbanSocket = (initialCards = []) => {
             socketInstance.off("disconnect");
             socketInstance.off("initialState");
             socketInstance.off("boardUpdate");
+            socketInstance.off("offline", userPermission.user);
             socketInstance.disconnect();
         };
-    }, []);
+    }, [userPermission]);
 
     // Function to update the board and broadcast changes
     const updateCards = (newCards) => {
@@ -62,7 +74,8 @@ const useKanbanSocket = (initialCards = []) => {
         setCards: updateCards,
         loading,
         connected,
-        socket
+        socket,
+        activeUsers,
     };
 };
 

@@ -1,58 +1,86 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
 import useKanbanSocket from "../hook/useKanbanSocket";
+import UserAuthModal from "../component/userAuthModal";
+import NavbarAvatarGroup from "../component/NavbarAvatarGroup";
 
 const CustomKanban = () => {
+    const [userAuthDetails, setUserAuthDetails] = useState({
+        isAuthorized: localStorage.getItem('isAuth'),
+        user: JSON.parse(localStorage.getItem('userCred')),
+    });
     return (
         <div className="h-screen w-full bg-neutral-900 text-neutral-50">
-            <Board />
+
+            <Board userAuthDetails={userAuthDetails} />
+            <UserAuthModal
+                userAuthDetails={userAuthDetails}
+                setUserAuthDetails={(values) => {
+                    setUserAuthDetails({
+                        isAuthorized: true,
+                        user: values,
+                    });
+                    localStorage.setItem('isAuth', true)
+                    localStorage.setItem('userCred', JSON.stringify(values))
+                }}
+            />
         </div>
     );
 };
 
-export default CustomKanban
+export default CustomKanban;
 
-const Board = () => {
-    const { cards, setCards, loading, connected } = useKanbanSocket([]);
+const Board = ({ userAuthDetails }) => {
+    const { cards, setCards, loading, connected, activeUsers } = useKanbanSocket(
+        [],
+        userAuthDetails
+    );
 
     if (loading) {
-        return <div className="flex h-full w-full items-center justify-center">Loading board...</div>;
+        return (
+            <div className="flex h-full w-full items-center justify-center">
+                Loading board...
+            </div>
+        );
     }
     return (
-        <div className="flex h-full w-full gap-3 overflow-hidden p-12">
-            <Column
-                title="Backlog"
-                column="backlog"
-                headingColor="text-neutral-500"
-                cards={cards}
-                setCards={setCards}
-            />
-            <Column
-                title="TODO"
-                column="todo"
-                headingColor="text-yellow-200"
-                cards={cards}
-                setCards={setCards}
-            />
-            <Column
-                title="In progress"
-                column="doing"
-                headingColor="text-blue-200"
-                cards={cards}
-                setCards={setCards}
-            />
-            <Column
-                title="Complete"
-                column="done"
-                headingColor="text-emerald-200"
-                cards={cards}
-                setCards={setCards}
-            />
-            <BurnBarrel setCards={setCards} cards={cards} />
-        </div>
+        <>
+            <NavbarAvatarGroup activeUsers={activeUsers} />
+            <div className="flex h-full w-full gap-3 overflow-hidden p-12">
+
+                <Column
+                    title="Backlog"
+                    column="backlog"
+                    headingColor="text-neutral-500"
+                    cards={cards}
+                    setCards={setCards}
+                />
+                <Column
+                    title="TODO"
+                    column="todo"
+                    headingColor="text-yellow-200"
+                    cards={cards}
+                    setCards={setCards}
+                />
+                <Column
+                    title="In progress"
+                    column="doing"
+                    headingColor="text-blue-200"
+                    cards={cards}
+                    setCards={setCards}
+                />
+                <Column
+                    title="Complete"
+                    column="done"
+                    headingColor="text-emerald-200"
+                    cards={cards}
+                    setCards={setCards}
+                />
+                <BurnBarrel setCards={setCards} cards={cards} />
+            </div></>
     );
 };
 
@@ -94,9 +122,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
                 copy.splice(insertAtIndex, 0, cardToTransfer);
             }
 
-
-            console.log(copy, 'dsfsdfsdfsfsdfsdfsd');
-
+            console.log(copy, "dsfsdfsdfsfsdfsdfsd");
 
             setCards(copy);
         }
